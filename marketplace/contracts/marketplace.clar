@@ -94,20 +94,24 @@
 	)
 )
 (define-public (cancel-listing (listingId uint) (nftContract <sip-009>))
-	(begin	
-		(asserts! (is-eq (get nftOwner (unwrap! (map-get? listingData listingId) err-listingUndefined)) tx-sender) err-notAuthorized)
+	(let
+	   (
+		  (listingTuple (unwrap! (map-get? listingData listingId) err-listingUndefined))
+	   )	
+		(asserts! (is-eq (get nftOwner listingTuple) tx-sender) err-notAuthorized)
 		(asserts! (is-eq 
-		   (get nftContract (unwrap! (map-get? listingData listingId) err-listingUndefined)) 
+		   (get nftContract listingTuple) 
 		   (contract-of nftContract)
 		   ) 
 		   err-nftContract-not-same
 		)
 		(map-delete listingData listingId)
 		(as-contract (transfer-nft nftContract 
-		   (get tokenId (unwrap! (map-get? listingData listingId) err-listingUndefined)) 
+		   (get tokenId listingTuple) 
 		   tx-sender 
-		   (get nftOwner (unwrap! (map-get? listingData listingId) err-listingUndefined))
+		   (get nftOwner listingTuple)
 		))
+		
 	)
 )
 (define-public (fulfil-listing-stx (listingId uint) (nftContract <sip-009>))

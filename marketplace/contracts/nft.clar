@@ -30,8 +30,8 @@
       (nft-mint? NFT (var-get nft-count) recipient)  
    )
    (map-insert nft-data {id: (var-get nft-count)} data)
-   (var-set nft-count (var-get nft-count) + 1 )
-   (ok true)
+   (var-set nft-count (+ (var-get nft-count) u1) )
+   (ok (- (var-get nft-count) u1))
    )
 
 )

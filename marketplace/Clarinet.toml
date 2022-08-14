@@ -14,11 +14,12 @@ path = "contracts/ft.clar"
 [contracts.marketplace]
 path = "contracts/marketplace.clar"
 
-[contracts.nft]
-path = "contracts/nft.clar"
-
 [contracts.sip-009]
 path = "contracts/sip-009.clar"
+
+[contracts.nft]
+path = "contracts/nft.clar"
+dependes_on=["contracts/sip-009.clar"]
 
 [contracts.sip-010]
 path = "contracts/sip-010.clar"
